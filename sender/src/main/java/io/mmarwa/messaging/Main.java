@@ -17,26 +17,26 @@ public class Main {
 
 
         int numSenders = Integer.parseInt( System.getProperty("n", "10") );
-		ExecutorService sex = Executors.newFixedThreadPool(numSenders);
+		ExecutorService ex = Executors.newFixedThreadPool(numSenders);
 
 		try {
 
-			log.info("Staring sender....");
+			log.info("Starting sender....");
 			int num2Send = Integer.parseInt(System.getProperty("s", "2000"));
 			log.info("Sending messages: " + num2Send);
 
 			for (int s = 1; s < numSenders+1; s++) {
-				sex.submit(new JMS2Sender(s, num2Send/numSenders, count));
+				ex.submit(new JMS2Sender(s, num2Send/numSenders, count));
 			}
 
 
-		}catch (Exception ex){
+		}catch (Exception lex){
 
-			log.error("Exception in sender main!", ex);
+			log.error("Exception in sender main!", lex);
 
 		} finally {
 
-			sex.shutdown();
+			ex.shutdown();
 
 		}
 
